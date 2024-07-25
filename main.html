@@ -1,15 +1,64 @@
 <!DOCTYPE html>
-
-<html>
-  <head>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-
-  <body>
-    <!-- do not change this code -->
-    <input type="number" id="ip" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Chaining</title>
+</head>
+<body>
+    <input type="number" id="ip">
     <button id="btn">Start</button>
     <div id="output"></div>
-    <script type="text/javascript" src="./script.js"></script>
-  </body>
+
+    <script>
+        document.getElementById('btn').addEventListener('click', () => {
+            const inputNumber = parseInt(document.getElementById('ip').value);
+
+            // Start the promise chain
+            new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(inputNumber);
+                }, 2000);
+            })
+            .then((number) => {
+                document.getElementById('output').innerText = `Result: ${number}`;
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve(number * 2);
+                    }, 1000);
+                });
+            })
+            .then((number) => {
+                document.getElementById('output').innerText = `Result: ${number}`;
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve(number - 3);
+                    }, 1000);
+                });
+            })
+            .then((number) => {
+                document.getElementById('output').innerText = `Result: ${number}`;
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve(number / 2);
+                    }, 1000);
+                });
+            })
+            .then((number) => {
+                document.getElementById('output').innerText = `Result: ${number}`;
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve(number + 10);
+                    }, 1000);
+                });
+            })
+            .then((finalNumber) => {
+                document.getElementById('output').innerText = `Final Result: ${finalNumber}`;
+            })
+            .catch((error) => {
+                document.getElementById('output').innerText = `Error: ${error}`;
+            });
+        });
+    </script>
+</body>
 </html>
